@@ -178,7 +178,7 @@ export const copyFile = (
       );
     case 'aws-s3':
       return awsS3Copy(
-        originUrl,
+        fileName,
         destinationFileName,
         false,
       );

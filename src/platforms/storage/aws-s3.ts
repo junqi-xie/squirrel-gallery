@@ -14,11 +14,15 @@ const AWS_S3_ACCESS_KEY = process.env.AWS_S3_ACCESS_KEY ?? '';
 const AWS_S3_SECRET_ACCESS_KEY = process.env.AWS_S3_SECRET_ACCESS_KEY ?? '';
 
 export const AWS_S3_BASE_URL = AWS_S3_BUCKET && AWS_S3_REGION
-  ? `https://${AWS_S3_BUCKET}.s3.${AWS_S3_REGION}.amazonaws.com`
+  ? `https://${AWS_S3_BUCKET}.oss-${AWS_S3_REGION}.aliyuncs.com`
+  : undefined;
+
+export const AWS_S3_ENDPOINT = AWS_S3_REGION
+  ? `https://oss-${AWS_S3_REGION}.aliyuncs.com`
   : undefined;
 
 export const awsS3Client = () => new S3Client({
-  region: AWS_S3_REGION,
+  endpoint: AWS_S3_ENDPOINT,
   credentials: {
     accessKeyId: AWS_S3_ACCESS_KEY,
     secretAccessKey: AWS_S3_SECRET_ACCESS_KEY,
@@ -57,7 +61,7 @@ export const awsS3Copy = async (
     : fileNameDestination;
   return awsS3Client().send(new CopyObjectCommand({
     Bucket: AWS_S3_BUCKET,
-    CopySource: fileNameSource,
+    CopySource: `${AWS_S3_BUCKET}/${fileNameSource}`,
     Key,
     ACL: 'public-read',
   }))

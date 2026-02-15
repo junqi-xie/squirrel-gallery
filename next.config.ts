@@ -18,7 +18,7 @@ const HOSTNAME_AWS_S3 =
   process.env.NEXT_PUBLIC_AWS_S3_BUCKET &&
   process.env.NEXT_PUBLIC_AWS_S3_REGION
     // eslint-disable-next-line max-len
-    ? `${process.env.NEXT_PUBLIC_AWS_S3_BUCKET}.s3.${process.env.NEXT_PUBLIC_AWS_S3_REGION}.amazonaws.com`
+    ? `${process.env.NEXT_PUBLIC_AWS_S3_BUCKET}.oss-${process.env.NEXT_PUBLIC_AWS_S3_REGION}.aliyuncs.com`
     : undefined;
 
 const HOSTNAME_MINIO =
